@@ -1,29 +1,65 @@
-# Project README
+# Drift Monitoring & Feature Analysis
 
-## Overview
-This project contains code, scripts, and resources for fitness test data analysis and related functionality.
+This repository contains a collection of Jupyter notebooks for monitoring **data drift**, **feature drift**, and **distribution shifts** in clinical datasets. The analysis explores correlations between drift metrics and model performance (AUROC), leveraging PCA/TF-IDF methods.
 
-## Included Components
-- **Data Processing Scripts**: Tools to clean, validate, and prepare fitness testing data (PACER, Push-ups, Modified Pull-ups, etc.).
-- **Business Rules**: Validation against CDC growth charts and FitnessGram standards.
-- **Analysis Modules**: Code for statistical analysis and visualization of test results.
-- **Documentation**: This README and supplementary references for FitnessGram and CDC resources.
+## 📂 Contents
 
-## Business Rules
-- When entering data into the database, verify values fall within the valid range for the individual's age and gender by referencing the **CDC Growth Chart**.
-- For PACER test scores, valid range: **1–247 laps**.
-- For Push-Ups and Modified Pull-Ups, valid range: **0–75 repetitions** (system cap).
+- **baseline_training.ipynb**  
+  Trains baseline models for drift monitoring.
 
-## Usage
-1. Clone this repository or download the source files.
-2. Install dependencies listed in `requirements.txt` (if applicable).
-3. Run data processing scripts on your dataset using Python 3.8+.
-4. Review outputs in the `results/` folder.
+- **combined_plot.ipynb**  
+  Generates combined visualization plots for multiple drift metrics.
 
-## References
-- [FitnessGram Test Administration Manual](https://dl.icdst.org/pdfs/files/2801e301e713d36f204bd16b56d7055b.pdf)
-- [CDC Growth Charts](https://www.cdc.gov/growthcharts/)
-- [PACER Test Details - Wikipedia](https://en.wikipedia.org/wiki/Multi-stage_fitness_test)
+- **Correlation Analysis - Distribution Drift vs Model AUROC.ipynb**  
+  Explores the relationship between drift signals and model AUROC performance.
 
----
-*Prepared for internal project documentation purposes.*
+- **drift_visual_v3_training_strategy_feature_investigation.ipynb**  
+  Detailed feature-level drift visualization and training strategy experiments.
+
+- **read_data_test.ipynb**  
+  Utility notebook for reading and testing datasets.
+
+- **s3_files_download.ipynb**  
+  Script for downloading raw data from AWS S3.
+
+- **tfidf_pca.ipynb**  
+  Implements TF-IDF with PCA for dimensionality reduction and drift tracking.
+
+## ⚙️ Requirements
+
+- Python 3.8+
+- Jupyter Notebook
+- Common packages: `numpy`, `pandas`, `matplotlib`, `scikit-learn`, `scipy`, `boto3`
+
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+## 🚀 Usage
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/<your-username>/<repo-name>.git
+   cd <repo-name>
+   ```
+
+2. Open Jupyter:
+   ```bash
+   jupyter notebook
+   ```
+
+3. Run the notebooks in order:
+   - `s3_files_download.ipynb` → fetch data  
+   - `read_data_test.ipynb` → validate data  
+   - `baseline_training.ipynb` → train baseline model  
+   - `tfidf_pca.ipynb` → perform drift analysis  
+   - `combined_plot.ipynb` & `Correlation Analysis...` → visualize and interpret results  
+
+## 📊 Project Context
+
+These notebooks were developed as part of a clinical data science project to evaluate **model robustness under distribution shifts**. Methods include:
+- Outlier detection
+- Drift monitoring with KS/JS divergence
+- PCA-based dimensionality reduction
+- Correlation of drift metrics with AUROC
